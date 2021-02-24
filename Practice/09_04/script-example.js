@@ -9,11 +9,13 @@
 const gridContainer = document.querySelector(".grid");
 
 gridContainer.addEventListener("mouseenter", () => {
-  gridContainer.style.outline = "6px solid red";
+  gridContainer.style.outline = "6px solid blue";
+  gridContainer.style.backgroundColor = "red";
 });
 
 gridContainer.addEventListener("mouseleave", () => {
   gridContainer.style.outline = "";
+  gridContainer.style.backgroundColor = body.style.backgroundColor;
 });
 
 /**
@@ -33,19 +35,31 @@ gridCells.forEach((cell) => {
   cell.addEventListener("mouseenter", (e) => {
     console.log(e);
     cell.style.outline = "2px solid red";
+    if (cell.style.backgroundColor == "") {
+      cell.style.backgroundColor = "yellow";
+    } else {
+      null;
+    }
   });
 
   // Remove outline when cell is exited
   cell.addEventListener("mouseleave", () => {
     cell.style.outline = "";
+    if (cell.style.backgroundColor == "yellow") {
+      cell.style.backgroundColor = "";
+    } else {
+      null;
+    }
   });
 
   // Set/remove random background color on click
   cell.addEventListener("click", () => {
-    if (cell.style.backgroundColor) {
-      cell.style.backgroundColor = "";
-    } else {
+    if (cell.style.backgroundColor && cell.style.backgroundColor == "yellow") {
+      //cell.style.backgroundColor = "";
       cell.style.backgroundColor = `#${randColor()}`;
+    } else {
+      cell.style.backgroundColor = "";
+      //ell.style.backgroundColor = `#${randColor()}`;
     }
   });
 });
@@ -63,5 +77,8 @@ body.addEventListener("keydown", (event) => {
     body.style.backgroundColor === ""
       ? (body.style.backgroundColor = "hsl(201, 34%, 13%)")
       : (body.style.backgroundColor = "");
+    gridContainer.style.backgroundColor === ""
+      ? (gridContainer.style.backgroundColor = "hsl(201, 34%, 13%)")
+      : (gridContainer.style.backgroundColor = "");
   }
 });
